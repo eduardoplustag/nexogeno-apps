@@ -1,0 +1,6 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/nexogenocom/public_html/wp-content/plugins/nexogeno-apps
+    - /bin/mkdir -p $DEPLOYPATH
+    - /bin/rsync -av --delete ./ $DEPLOYPATH
