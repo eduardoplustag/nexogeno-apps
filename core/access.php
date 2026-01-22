@@ -5,6 +5,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 function nexogeno_apps_user_can_access( $app, $user_id, &$subscription_id = null ) {
+	if ( $user_id && user_can( $user_id, 'manage_options' ) ) {
+		return true;
+	}
+
 	$can_access = nexogeno_apps_user_has_valid_subscription( $app, $user_id, $subscription_id );
 
 	return (bool) apply_filters( 'nexogeno_apps_user_can_access', $can_access, $app, $user_id );
