@@ -1,12 +1,22 @@
-.nexogeno-apps-selector {
-	background: #fff;
-	border: 1px solid #ccd0d4;
-	padding: 16px;
-	margin: 0 0 16px;
+.nexogeno-apps-table {
+	margin-top: 12px;
 }
 
-.nexogeno-apps-selector h2 {
-	margin: 0 0 8px;
+.nexogeno-apps-table td {
+	vertical-align: top;
+}
+
+.nexogeno-apps-selector {
+	background: transparent;
+	border: 0;
+	padding: 0;
+	margin: 0;
+}
+
+.nexogeno-apps-col-name .description {
+	color: #6c7781;
+	font-size: 12px;
+	margin-top: 4px;
 }
 
 .nexogeno-apps-tags {
@@ -76,4 +86,17 @@
 .nexogeno-apps-empty {
 	padding: 6px 8px;
 	color: #6c7781;
+}
+
+.nexogeno-apps-col-status {
+	white-space: nowrap;
+}
+
+.nexogeno-apps-status {
+	display: inline-flex;
+	align-items: center;
+}
+
+.nexogeno-apps-status input[type='checkbox'] {
+	margin-right: 6px;
 }

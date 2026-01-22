@@ -39,17 +39,49 @@ function nexogeno_apps_handle_request() {
 		return;
 	}
 
+	$user_id = get_current_user_id();
+	$subscription_id = null;
+
 	if ( empty( $app['enabled'] ) ) {
+		nexogeno_apps_log_event(
+			$app['id'],
+			'access',
+			array(
+				'status' => 'denied',
+				'user_id' => $user_id,
+				'message' => 'App disabled',
+			)
+		);
 		status_header( 404 );
 		nocache_headers();
 		wp_die( esc_html__( 'App desativado.', 'nexogeno-apps' ) );
 	}
 
-	$user_id = get_current_user_id();
-	if ( ! nexogeno_apps_user_can_access( $app, $user_id ) ) {
+	if ( ! nexogeno_apps_user_can_access( $app, $user_id, $subscription_id ) ) {
+		nexogeno_apps_log_event(
+			$app['id'],
+			'access',
+			array(
+				'status' => 'denied',
+				'user_id' => $user_id,
+				'subscription_id' => $subscription_id,
+				'message' => 'Access denied',
+			)
+		);
 		nexogeno_apps_render_access_denied( $app, $user_id );
 		exit;
 	}
+
+	nexogeno_apps_log_event(
+		$app['id'],
+		'access',
+		array(
+			'status' => 'allowed',
+			'user_id' => $user_id,
+			'subscription_id' => $subscription_id,
+			'message' => 'Access granted',
+		)
+	);
 
 	nexogeno_apps_render_app( $app, $user_id );
 	exit;

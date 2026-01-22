@@ -157,5 +157,10 @@
 		$('.nexogeno-apps-selector').each(function() {
 			initSelector($(this));
 		});
+
+		$('.nexogeno-apps-status input[type="checkbox"]').on('change', function() {
+			var $label = $(this).closest('.nexogeno-apps-status').find('span');
+			$label.text(this.checked ? NexogenoApps.status.active : NexogenoApps.status.deactive);
+		});
 	});
 })(jQuery);

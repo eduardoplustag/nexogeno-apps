@@ -5,6 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 function nexogeno_apps_bootstrap() {
+	nexogeno_apps_maybe_install_storage();
 	nexogeno_apps_registry_bootstrap();
 	nexogeno_apps_router_bootstrap();
 }
@@ -41,6 +42,10 @@ function nexogeno_apps_normalize_config( $config, $source_file ) {
 	$override_products = nexogeno_apps_get_products_for_app( $normalized['id'], null );
 	if ( null !== $override_products ) {
 		$normalized['products'] = $override_products;
+	}
+	$override_status = nexogeno_apps_get_status_for_app( $normalized['id'], null );
+	if ( null !== $override_status ) {
+		$normalized['enabled'] = $override_status;
 	}
 
 	if ( $normalized['templates_dir'] && ! $normalized['template'] ) {
@@ -121,4 +126,18 @@ function nexogeno_apps_get_products_for_app( $app_id, $default = null ) {
 
 	$products = array_values( array_filter( array_map( 'intval', (array) $stored[ $app_id ] ) ) );
 	return $products;
+}
+
+function nexogeno_apps_get_status_for_app( $app_id, $default = null ) {
+	$app_id = sanitize_key( $app_id );
+	if ( ! $app_id ) {
+		return $default;
+	}
+
+	$stored = get_option( 'nexogeno_apps_status', array() );
+	if ( ! is_array( $stored ) || ! array_key_exists( $app_id, $stored ) ) {
+		return $default;
+	}
+
+	return (bool) $stored[ $app_id ];
 }

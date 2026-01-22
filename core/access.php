@@ -4,13 +4,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-function nexogeno_apps_user_can_access( $app, $user_id ) {
-	$can_access = nexogeno_apps_user_has_valid_subscription( $app, $user_id );
+function nexogeno_apps_user_can_access( $app, $user_id, &$subscription_id = null ) {
+	$can_access = nexogeno_apps_user_has_valid_subscription( $app, $user_id, $subscription_id );
 
 	return (bool) apply_filters( 'nexogeno_apps_user_can_access', $can_access, $app, $user_id );
 }
 
-function nexogeno_apps_user_has_valid_subscription( $app, $user_id ) {
+function nexogeno_apps_user_has_valid_subscription( $app, $user_id, &$subscription_id = null ) {
+	$subscription_id = null;
+
 	if ( ! $user_id ) {
 		return false;
 	}
@@ -38,6 +40,7 @@ function nexogeno_apps_user_has_valid_subscription( $app, $user_id ) {
 
 		foreach ( $product_ids as $product_id ) {
 			if ( method_exists( $subscription, 'has_product' ) && $subscription->has_product( $product_id ) ) {
+				$subscription_id = method_exists( $subscription, 'get_id' ) ? (int) $subscription->get_id() : 0;
 				return true;
 			}
 		}
@@ -65,4 +68,3 @@ function nexogeno_apps_subscription_is_valid( $subscription ) {
 	$status = method_exists( $subscription, 'get_status' ) ? $subscription->get_status() : '';
 	return in_array( $status, $allowed_statuses, true );
 }
-

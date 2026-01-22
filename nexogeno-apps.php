@@ -18,6 +18,7 @@ require_once NEXOGENO_APPS_CORE . '/registry.php';
 require_once NEXOGENO_APPS_CORE . '/router.php';
 require_once NEXOGENO_APPS_CORE . '/access.php';
 require_once NEXOGENO_APPS_CORE . '/cache.php';
+require_once NEXOGENO_APPS_CORE . '/storage.php';
 
 nexogeno_apps_bootstrap();
 
@@ -29,6 +30,7 @@ if ( is_admin() ) {
 function nexogeno_apps_activate() {
 	nexogeno_apps_discover_and_register();
 	nexogeno_apps_register_routes();
+	nexogeno_apps_maybe_install_storage();
 	flush_rewrite_rules();
 }
 
