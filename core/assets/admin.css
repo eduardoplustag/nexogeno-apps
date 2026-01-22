@@ -1,0 +1,79 @@
+.nexogeno-apps-selector {
+	background: #fff;
+	border: 1px solid #ccd0d4;
+	padding: 16px;
+	margin: 0 0 16px;
+}
+
+.nexogeno-apps-selector h2 {
+	margin: 0 0 8px;
+}
+
+.nexogeno-apps-tags {
+	margin-bottom: 8px;
+}
+
+.nexogeno-apps-tag {
+	display: inline-flex;
+	align-items: center;
+	background: #f0f0f1;
+	border: 1px solid #c3c4c7;
+	border-radius: 999px;
+	padding: 2px 8px;
+	margin: 0 6px 6px 0;
+	font-size: 12px;
+}
+
+.nexogeno-apps-tag-label {
+	margin-right: 6px;
+}
+
+.nexogeno-apps-remove {
+	border: 0;
+	background: transparent;
+	cursor: pointer;
+	padding: 0 2px;
+	line-height: 1;
+	font-size: 14px;
+}
+
+.nexogeno-apps-search {
+	width: 100%;
+	max-width: 420px;
+}
+
+.nexogeno-apps-results {
+	list-style: none;
+	margin: 6px 0 0;
+	padding: 0;
+	border: 1px solid #ccd0d4;
+	background: #fff;
+	max-height: 220px;
+	overflow: auto;
+	display: none;
+}
+
+.nexogeno-apps-results li {
+	margin: 0;
+}
+
+.nexogeno-apps-result {
+	width: 100%;
+	text-align: left;
+	padding: 6px 8px;
+	background: #fff;
+	border: 0;
+	border-bottom: 1px solid #f0f0f1;
+	cursor: pointer;
+}
+
+.nexogeno-apps-result:hover,
+.nexogeno-apps-result:focus {
+	background: #f6f7f7;
+}
+
+.nexogeno-apps-loading,
+.nexogeno-apps-empty {
+	padding: 6px 8px;
+	color: #6c7781;
+}

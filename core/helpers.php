@@ -38,6 +38,10 @@ function nexogeno_apps_normalize_config( $config, $source_file ) {
 	$normalized['templates_dir'] = (string) $normalized['templates_dir'];
 	$normalized['assets_dir']    = (string) $normalized['assets_dir'];
 	$normalized['template']      = (string) $normalized['template'];
+	$override_products = nexogeno_apps_get_products_for_app( $normalized['id'], null );
+	if ( null !== $override_products ) {
+		$normalized['products'] = $override_products;
+	}
 
 	if ( $normalized['templates_dir'] && ! $normalized['template'] ) {
 		$default_template = rtrim( $normalized['templates_dir'], '/' ) . '/app.php';
@@ -104,3 +108,17 @@ function nexogeno_apps_find_by_request() {
 	return null;
 }
 
+function nexogeno_apps_get_products_for_app( $app_id, $default = null ) {
+	$app_id = sanitize_key( $app_id );
+	if ( ! $app_id ) {
+		return $default;
+	}
+
+	$stored = get_option( 'nexogeno_apps_products', array() );
+	if ( ! is_array( $stored ) || ! array_key_exists( $app_id, $stored ) ) {
+		return $default;
+	}
+
+	$products = array_values( array_filter( array_map( 'intval', (array) $stored[ $app_id ] ) ) );
+	return $products;
+}

@@ -21,6 +21,11 @@ require_once NEXOGENO_APPS_CORE . '/cache.php';
 
 nexogeno_apps_bootstrap();
 
+if ( is_admin() ) {
+	require_once NEXOGENO_APPS_CORE . '/admin.php';
+	nexogeno_apps_admin_bootstrap();
+}
+
 function nexogeno_apps_activate() {
 	nexogeno_apps_discover_and_register();
 	nexogeno_apps_register_routes();
