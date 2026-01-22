@@ -18,7 +18,7 @@ $app_name = $app['name'] ?? 'Nexogeno App';
 <body>
 	<main>
 		<h1><?php echo esc_html( $app_name ); ?></h1>
-		<p>App <?php echo esc_html( $app_name ); ?> comming soon.</p>
+		<p>App <?php echo esc_html( $app_name ); ?> coming soon.</p>
 	</main>
 	<?php wp_footer(); ?>
 </body>
