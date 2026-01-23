@@ -12,4 +12,5 @@ return array(
 	'templates_dir' => __DIR__ . '/templates',
 	'assets_dir'    => __DIR__ . '/assets',
 	'template'      => __DIR__ . '/templates/app.php',
+	'python_url'    => 'https://nexogeno-studio.nexogeno.com',
 );

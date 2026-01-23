@@ -19,6 +19,7 @@ require_once NEXOGENO_APPS_CORE . '/router.php';
 require_once NEXOGENO_APPS_CORE . '/access.php';
 require_once NEXOGENO_APPS_CORE . '/cache.php';
 require_once NEXOGENO_APPS_CORE . '/storage.php';
+require_once NEXOGENO_APPS_CORE . '/python.php';
 
 nexogeno_apps_bootstrap();
 

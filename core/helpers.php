@@ -23,6 +23,7 @@ function nexogeno_apps_normalize_config( $config, $source_file ) {
 		'templates_dir' => '',
 		'assets_dir'    => '',
 		'template'      => '',
+		'python_url'    => '',
 		'source_file'   => $source_file,
 	);
 
@@ -39,6 +40,7 @@ function nexogeno_apps_normalize_config( $config, $source_file ) {
 	$normalized['templates_dir'] = (string) $normalized['templates_dir'];
 	$normalized['assets_dir']    = (string) $normalized['assets_dir'];
 	$normalized['template']      = (string) $normalized['template'];
+	$normalized['python_url']    = esc_url_raw( (string) $normalized['python_url'] );
 	$override_products = nexogeno_apps_get_products_for_app( $normalized['id'], null );
 	if ( null !== $override_products ) {
 		$normalized['products'] = $override_products;
