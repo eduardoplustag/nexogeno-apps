@@ -8,6 +8,7 @@ function nexogeno_apps_bootstrap() {
 	nexogeno_apps_maybe_install_storage();
 	nexogeno_apps_registry_bootstrap();
 	nexogeno_apps_router_bootstrap();
+	nexogeno_apps_menu_bootstrap();
 }
 
 function nexogeno_apps_normalize_config( $config, $source_file ) {
@@ -142,4 +143,29 @@ function nexogeno_apps_get_status_for_app( $app_id, $default = null ) {
 	}
 
 	return (bool) $stored[ $app_id ];
+}
+
+function nexogeno_apps_menu_bootstrap() {
+	add_filter( 'wp_nav_menu_objects', 'nexogeno_apps_filter_menu_objects', 10, 2 );
+}
+
+function nexogeno_apps_filter_menu_objects( $items, $args ) {
+	if ( empty( $items ) ) {
+		return $items;
+	}
+
+	$user_id = get_current_user_id();
+	if ( ! nexogeno_apps_should_show_apps_menu( $user_id ) ) {
+		return $items;
+	}
+
+	foreach ( $items as $item ) {
+		if ( empty( $item->classes ) || ! in_array( 'apps', $item->classes, true ) ) {
+			continue;
+		}
+
+		$item->classes = array_values( array_diff( $item->classes, array( 'hide' ) ) );
+	}
+
+	return $items;
 }

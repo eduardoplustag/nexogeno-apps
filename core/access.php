@@ -72,3 +72,39 @@ function nexogeno_apps_subscription_is_valid( $subscription ) {
 	$status = method_exists( $subscription, 'get_status' ) ? $subscription->get_status() : '';
 	return in_array( $status, $allowed_statuses, true );
 }
+
+function nexogeno_apps_user_has_active_subscription( $user_id ) {
+	if ( ! $user_id ) {
+		return false;
+	}
+
+	if ( ! function_exists( 'wcs_get_users_subscriptions' ) ) {
+		return false;
+	}
+
+	$subscriptions = wcs_get_users_subscriptions( $user_id );
+	if ( empty( $subscriptions ) ) {
+		return false;
+	}
+
+	foreach ( $subscriptions as $subscription ) {
+		if ( nexogeno_apps_subscription_is_valid( $subscription ) ) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
+function nexogeno_apps_should_show_apps_menu( $user_id ) {
+	if ( ! $user_id ) {
+		return false;
+	}
+
+	if ( user_can( $user_id, 'manage_options' ) ) {
+		return true;
+	}
+
+	$has_subscription = nexogeno_apps_user_has_active_subscription( $user_id );
+	return (bool) apply_filters( 'nexogeno_apps_should_show_apps_menu', $has_subscription, $user_id );
+}
