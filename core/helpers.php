@@ -147,6 +147,7 @@ function nexogeno_apps_get_status_for_app( $app_id, $default = null ) {
 
 function nexogeno_apps_menu_bootstrap() {
 	add_filter( 'wp_nav_menu_objects', 'nexogeno_apps_filter_menu_objects', 10, 2 );
+	add_filter( 'wp_get_nav_menu_items', 'nexogeno_apps_filter_nav_menu_items', 10, 3 );
 }
 
 function nexogeno_apps_filter_menu_objects( $items, $args ) {
@@ -168,4 +169,94 @@ function nexogeno_apps_filter_menu_objects( $items, $args ) {
 	}
 
 	return $items;
+}
+
+function nexogeno_apps_filter_nav_menu_items( $items, $menu, $args ) {
+	if ( is_admin() && ! wp_doing_ajax() ) {
+		return $items;
+	}
+
+	$menu_id = 0;
+	if ( is_object( $menu ) && isset( $menu->term_id ) ) {
+		$menu_id = (int) $menu->term_id;
+	} elseif ( is_numeric( $menu ) ) {
+		$menu_id = (int) $menu;
+	}
+
+	$target_menu_id = (int) apply_filters( 'nexogeno_apps_menu_id', 119 );
+	if ( $menu_id !== $target_menu_id ) {
+		return $items;
+	}
+
+	$apps = nexogeno_apps_get_apps();
+	if ( empty( $apps ) ) {
+		return $items;
+	}
+
+	$dynamic_items = array();
+	$position = 1;
+
+	foreach ( $apps as $app ) {
+		if ( empty( $app['enabled'] ) ) {
+			continue;
+		}
+
+		$product_ids = isset( $app['products'] ) ? (array) $app['products'] : array();
+		$product_ids = array_values( array_filter( array_map( 'intval', $product_ids ) ) );
+		if ( empty( $product_ids ) ) {
+			continue;
+		}
+
+		$url = nexogeno_apps_get_app_url( $app );
+		if ( ! $url ) {
+			continue;
+		}
+
+		$title = ! empty( $app['name'] ) ? $app['name'] : $app['id'];
+		$dynamic_items[] = nexogeno_apps_build_menu_item( $title, $url, $position );
+		$position++;
+	}
+
+	return ! empty( $dynamic_items ) ? $dynamic_items : $items;
+}
+
+function nexogeno_apps_get_app_url( $app ) {
+	if ( ! is_array( $app ) ) {
+		return '';
+	}
+
+	if ( ! empty( $app['route'] ) ) {
+		$path = '/' . ltrim( (string) $app['route'], '/' );
+		return user_trailingslashit( home_url( $path ) );
+	}
+
+	if ( ! empty( $app['query_var'] ) && isset( $app['query_value'] ) ) {
+		$base = home_url( '/' );
+		return add_query_arg( array( $app['query_var'] => (string) $app['query_value'] ), $base );
+	}
+
+	return '';
+}
+
+function nexogeno_apps_build_menu_item( $title, $url, $position = 1 ) {
+	$virtual_id = 100000 + (int) $position;
+	$item = (object) array(
+		'ID'               => $virtual_id,
+		'db_id'            => 0,
+		'menu_item_parent' => 0,
+		'object_id'        => 0,
+		'object'           => 'custom',
+		'type'             => 'custom',
+		'title'            => $title,
+		'url'              => $url,
+		'target'           => '',
+		'attr_title'       => '',
+		'description'      => '',
+		'classes'          => array( 'menu-item', 'menu-item-type-custom', 'menu-item-object-custom', 'nexogeno-app-item' ),
+		'xfn'              => '',
+		'menu_order'       => (int) $position,
+		'status'           => 'publish',
+	);
+
+	return wp_setup_nav_menu_item( $item );
 }
