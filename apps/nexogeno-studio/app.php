@@ -2,7 +2,7 @@
 
 return array(
 	'id'            => 'nexogeno-studio',
-	'name'          => 'Nexogeno Studio',
+	'name'          => 'NexoGENO Studio',
 	'version'       => '0.1.0',
 	'enabled'       => true,
 	'route'         => 'app-nexogeno-studio',

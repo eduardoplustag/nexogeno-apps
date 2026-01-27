@@ -14,8 +14,8 @@ function nexogeno_apps_admin_bootstrap() {
 
 function nexogeno_apps_register_admin_page() {
 	add_menu_page(
-		__( 'Nexogeno Apps', 'nexogeno-apps' ),
-		__( 'Nexogeno Apps', 'nexogeno-apps' ),
+		__( 'NexoGENO Apps', 'nexogeno-apps' ),
+		__( 'NexoGENO Apps', 'nexogeno-apps' ),
 		'manage_options',
 		'nexogeno-apps',
 		'nexogeno_apps_render_settings_page',
@@ -123,7 +123,7 @@ function nexogeno_apps_render_settings_page() {
 	$apps = nexogeno_apps_get_apps();
 	?>
 	<div class="wrap">
-		<h1><?php esc_html_e( 'Nexogeno Apps', 'nexogeno-apps' ); ?></h1>
+		<h1><?php esc_html_e( 'NexoGENO Apps', 'nexogeno-apps' ); ?></h1>
 		<form method="post" action="options.php">
 			<?php settings_fields( 'nexogeno_apps_settings' ); ?>
 

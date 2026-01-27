@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 $app = isset( $nexogeno_app ) ? $nexogeno_app : array();
-$app_name = $app['name'] ?? 'Nexogeno App';
+$app_name = $app['name'] ?? 'NexoGENO App';
 $user_id = isset( $nexogeno_app_user_id ) ? (int) $nexogeno_app_user_id : get_current_user_id();
 $python_url = $app['python_url'] ?? '';
 $python_url = apply_filters( 'nexogeno_apps_python_url', $python_url, $app, $user_id );

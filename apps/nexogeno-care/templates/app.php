@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 $app = isset( $nexogeno_app ) ? $nexogeno_app : array();
-$app_name = $app['name'] ?? 'Nexogeno App';
+$app_name = $app['name'] ?? 'NexoGENO App';
 
 ?><!doctype html>
 <html <?php language_attributes(); ?>>

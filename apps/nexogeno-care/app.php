@@ -2,7 +2,7 @@
 
 return array(
 	'id'            => 'nexogeno-care',
-	'name'          => 'Nexogeno Care',
+	'name'          => 'NexoGENO Care',
 	'version'       => '0.1.0',
 	'enabled'       => true,
 	'route'         => 'app-nexogeno-care',

@@ -2,7 +2,7 @@
 
 return array(
 	'id'            => 'nexogeno-animal',
-	'name'          => 'Nexogeno Animal',
+	'name'          => 'NexoGENO Animal',
 	'version'       => '0.1.0',
 	'enabled'       => true,
 	'route'         => 'app-nexogeno-animal',

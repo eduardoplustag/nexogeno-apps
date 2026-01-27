@@ -1,9 +1,9 @@
 <?php
 /**
- * Plugin Name: Nexogeno Apps Core
- * Description: Infraestrutura para Apps Nexogeno com descoberta automática e controle por assinatura.
+ * Plugin Name: NexoGENO Apps Core
+ * Description: Infraestrutura para Apps NexoGENO com descoberta automática e controle por assinatura.
  * Version: 0.1.0
- * Author: Nexogeno
+ * Author: NexoGENO
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
