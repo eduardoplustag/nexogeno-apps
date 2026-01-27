@@ -249,11 +249,11 @@ function nexogeno_apps_build_menu_item( $title, $url, $position = 1 ) {
 		'type'             => 'custom',
 		'title'            => $title,
 		'url'              => $url,
-		'target'           => '',
+		'target'           => '_blank',
 		'attr_title'       => '',
 		'description'      => '',
 		'classes'          => array( 'menu-item', 'menu-item-type-custom', 'menu-item-object-custom', 'nexogeno-app-item' ),
-		'xfn'              => '',
+		'xfn'              => 'noopener noreferrer',
 		'menu_order'       => (int) $position,
 		'status'           => 'publish',
 	);
