@@ -175,8 +175,9 @@ function nexogeno_apps_render_settings_page() {
 								</td>
 								<td class="nexogeno-apps-col-view">
 									<?php if ( $view_url && $is_enabled ) : ?>
-										<a class="button" href="<?php echo esc_url( $view_url ); ?>" target="_blank" rel="noopener noreferrer">
+										<a class="button nexogeno-apps-view" href="<?php echo esc_url( $view_url ); ?>" target="_blank" rel="noopener noreferrer">
 											<?php esc_html_e( 'View', 'nexogeno-apps' ); ?>
+											<span class="dashicons dashicons-external" aria-hidden="true"></span>
 										</a>
 									<?php else : ?>
 										<span class="description"><?php esc_html_e( 'Unavailable', 'nexogeno-apps' ); ?></span>
