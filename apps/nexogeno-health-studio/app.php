@@ -11,4 +11,5 @@ return array(
 	'products'      => array(4870),
 	'templates_dir' => __DIR__ . '/templates',
 	'template'      => __DIR__ . '/templates/app.php',
+	'python_url'    => 'https://nexogeno-health-studio.nexogeno.com',
 );
