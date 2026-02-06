@@ -6,6 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 function nexogeno_apps_router_bootstrap() {
 	add_action( 'init', 'nexogeno_apps_register_routes', 10 );
+	add_action( 'init', 'nexogeno_apps_maybe_flush_routes', 11 );
 	add_filter( 'query_vars', 'nexogeno_apps_register_query_vars' );
 	add_action( 'template_redirect', 'nexogeno_apps_handle_request' );
 }
@@ -31,6 +32,35 @@ function nexogeno_apps_register_routes() {
 
 		add_rewrite_rule( $regex, $query, 'top' );
 	}
+}
+
+function nexogeno_apps_maybe_flush_routes() {
+	$apps = nexogeno_apps_get_apps();
+	if ( empty( $apps ) ) {
+		return;
+	}
+
+	$payload = array();
+	foreach ( $apps as $app ) {
+		$payload[] = array(
+			'id' => $app['id'],
+			'route' => $app['route'],
+			'query_var' => $app['query_var'],
+			'query_value' => $app['query_value'],
+			'enabled' => (bool) $app['enabled'],
+		);
+	}
+
+	$hash = md5( wp_json_encode( $payload ) );
+	$option = 'nexogeno_apps_routes_hash';
+	$stored = get_option( $option );
+
+	if ( $hash === $stored ) {
+		return;
+	}
+
+	update_option( $option, $hash );
+	flush_rewrite_rules();
 }
 
 function nexogeno_apps_handle_request() {
