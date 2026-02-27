@@ -2,8 +2,8 @@
 /**
  * Plugin Name: NexoGENO Apps Core
  * Description: Infraestrutura para Apps NexoGENO com descoberta automática e controle por assinatura.
- * Version: 0.1.0
- * Author: NexoGENO
+ * Version: 0.1.2
+ * Author: NexoGENO | Plustag 
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
